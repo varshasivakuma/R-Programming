@@ -1,0 +1,19 @@
+library(ggplot2)
+library(dplyr)
+
+data(Titanic)
+
+titanic_df <- as.data.frame(Titanic)
+
+bar_plot_class <- ggplot(titanic_df, aes(x = Class, fill = factor(Survived))) +
+  geom_bar(position = "dodge") +
+  labs(x = "Passenger Class", y = "Count", title = "Survival by Passenger Class") +
+  scale_fill_discrete(name = "Survived", labels = c("No", "Yes"))
+print(bar_plot_class)
+
+bar_plot_gender <- ggplot(titanic_df, aes(x = Class, fill = factor(Survived))) +
+  geom_bar(position = "dodge") +
+  facet_grid(Sex ~ .) +
+  labs(x = "Passenger Class", y = "Count", title = "Survival by Passenger Class and Gender") +
+  scale_fill_discrete(name = "Survived", labels = c("No", "Yes"))
+print(bar_plot_gender)
