@@ -1,0 +1,18 @@
+library(dplyr)
+
+data(ChickWeight)
+
+regression_model <- lm(weight ~ Time + Diet, data = ChickWeight)
+
+new_data <- data.frame(Time = 10, Diet = 1)
+predicted_weight <- predict(regression_model, newdata = new_data)
+
+cat("Predicted Weight for Time=10 and Diet=1:", predicted_weight, "\n")
+
+actual_weight <- ChickWeight %>%
+  filter(Time == 10, Diet == 1) %>%
+  select(weight) %>%
+  unlist()
+
+error <- actual_weight - predicted_weight
+cat("Error in Model Prediction:", error, "\n")
